@@ -134,6 +134,19 @@ public class LinkedList implements FunctionalList {
     public LinkedList cons(Object e) {
         return new LinkedList((Node)e, head);
     }
+
+
+
+    public int getSize(){
+        Node n = head;
+        int totalSize = 0;
+        while (n != null)
+        {
+            totalSize++;
+            n = n.getNext();
+        }
+        return totalSize;
+    }
     public Node quickSort() {
         return quickSort(head,last());
     }
@@ -176,6 +189,49 @@ public class LinkedList implements FunctionalList {
         a.setData(b.getData());
         b.setData(aux);
     }
+
+
+    public void quickSortNaive() throws Exception {
+        quickSortNaive(0,getSize()-1);
+    }
+    public void quickSortNaive(int first, int end) throws Exception {
+        //if (first == null || first.getNext()==null || first == end || end.getData() == null || end == null) {
+        int p;
+        if (first<end) {
+            p=partitionNaive(first, end);// make the calculation in the global pointers
+            quickSortNaive(first,p-1);
+            quickSortNaive(p+1,end);
+        } else {
+        }
+    }
+
+    private int partitionNaive(int start, int end) throws Exception {
+        Node n = (Node)get(end);
+        int piv = (int)n.getData();
+        int j = start;
+        int i = start-1;
+        //previous = null;
+
+        for(j=start;j<=end-1;j++){
+            n = (Node) get(j);
+            if((int)n.getData()<=piv){
+                i++;
+                swap(i,j);
+            }
+        }
+        swap(i+1,end);
+        return i+1;
+    }
+
+
+    private void swap(int a, int b) throws Exception {
+        Node na = get(a);
+        Object aux  = (int)na.getData();
+        Node nb = get(b);
+        na.setData(nb.getData());
+        nb.setData(aux);
+    }
+
 
 /*
     public LinkedList quickSort(Node head) {

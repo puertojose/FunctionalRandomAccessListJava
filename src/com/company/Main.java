@@ -36,38 +36,76 @@ class Benchmark
         //llist4.printList();
         //llist2.printList();
 
-        testArray = new int[10000];
-        Random rand = new Random();
-        for (int i = 0; i < 10000; i++) {
-            testArray[i] = rand.nextInt();
-        }
-        LinkedList llist7 = new LinkedList(testArray);
+        int arraySize = 5000000;
+        LinkedList llist7;
 
-        RandomAccessList rlist1 = new RandomAccessList(new Tree(2));
-        RandomAccessList rlist2 = rlist1.cons(4).cons(6).cons(8).cons(20).cons(35).cons(24).cons(98).cons(2).cons(23);
-        rlist1.printList();
-        rlist2.printList();
-        System.out.println("Size  "+rlist2.getSize());
-        System.out.println("-------------------------");
+        //RandomAccessList rlist1 = new RandomAccessList(new Tree(2));
+        //RandomAccessList rlist2 = rlist1.cons(4).cons(6).cons(8).cons(20).cons(35).cons(24).cons(98).cons(2).cons(23);
+        //rlist1.printList();
+        //rlist2.printList();
+        //System.out.println("Size  "+rlist2.getSize());
+        //System.out.println("-------------------------");
 
 
 
-        System.out.println("-------------------------------SORRRTTTTTINNNNGGGG LINKED LISTTT-------------------");
-        llist2.printList();
-        //llist7.quickSort();
-        System.out.println("sorted----------------------------------------------------");
+        //System.out.println("-------------------------------SORRRTTTTTINNNNGGGG LINKED LISTTT-------------------");
+        //llist2.printList();
+
+        long betterSortLinked = 0;
+        long naiveSortLinked = 0;
+        long quickSortRandomA = 0;
+        int cycles = 10;
+        for(int j = 0; j<cycles;j++){
+
+
+            testArray = new int[arraySize];
+            Random rand = new Random();
+            for (int i = 0; i < arraySize; i++) {
+                testArray[i] = rand.nextInt();
+            }
+
+        llist7 = new LinkedList(testArray);
+        long startTime = System.currentTimeMillis();
+        llist7.quickSort();
+        long endTime = System.currentTimeMillis();
+        betterSortLinked = betterSortLinked + endTime-startTime;
+        System.out.println("Total execution time of better QuickSort on a LinkedList: " + (endTime-startTime) + "ms");
+
+
+
+        //llist7 = new LinkedList(testArray);
+        //startTime = System.currentTimeMillis();
+        //llist7.quickSortNaive();
+        //endTime = System.currentTimeMillis();
+        //naiveSortLinked = naiveSortLinked + endTime-startTime;
+        //System.out.println("Total execution time of Naive QuickSort on a LinkedList: " + (endTime-startTime) + "ms");
+
+
+
+        //System.out.println("sorted----------------------------------------------------");
         //llist7.printList();
-        System.out.println("original--------------------------------------------------------------");
-        llist3.printList();
-        System.out.println("-----------------------------SORTING RANDOM ACCESS LISTTTT");
+        //System.out.println("original--------------------------------------------------------------");
+        //llist3.printList();
+        //System.out.println("-----------------------------SORTING RANDOM ACCESS LISTTTT");
         RandomAccessList rlist3 = new RandomAccessList(testArray);
-        System.out.println("random access list not ordered");
+        //System.out.println("random access list not ordered");
         //rlist3.printList();
         //rlist3.printSkewBinaryNumber();
-        rlist3.printList();
+        //rlist3.printList();
+
+        startTime = System.currentTimeMillis();
         rlist3.quickSort();
-        System.out.println("hey");
-        rlist3.printList();
+        endTime = System.currentTimeMillis();
+            quickSortRandomA = quickSortRandomA +endTime-startTime;
+        System.out.println("Total execution time of QuickSort on a Random Access list: " + (endTime-startTime) + "ms");
+        //System.out.println("hey");
+        //rlist3.printList();
+
+        }
+
+        //System.out.println("Average naiveSortLinked: "+ (double)naiveSortLinked/cycles);
+        System.out.println("Average betterSortLinked: "+ (double)betterSortLinked/cycles);
+        System.out.println("Average quickSortRandomA: "+ (double)quickSortRandomA/cycles);
 
     }
 }

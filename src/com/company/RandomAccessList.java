@@ -176,7 +176,6 @@ public class RandomAccessList implements FunctionalList, Iterable {
     @Override
     public RandomAccessList cons(Object elem) {
         if(this.head.getNext()!=null&&this.head.getSize()==this.head.getNext().getSize()){
-
             Tree t = new Tree(this.head.getSize()+this.head.getNext().getSize()+1,new Tree(elem,this.head,this.head.getNext()));
             t.setNext(this.head.getNext().getNext());
             return new RandomAccessList(t);
@@ -244,6 +243,10 @@ public class RandomAccessList implements FunctionalList, Iterable {
 
     public void quickSort() throws Exception {
         quickSort(0,getSize()-1);
+    }
+
+    public void quickSort(int size) throws Exception {
+        quickSort(0,size);
     }
 
     public void quickSort(int first, int end) throws Exception {
